@@ -136,10 +136,4 @@ with (newdata,
 
 *CONCLUSION: There is a different pattern of steps for weekdays and weekends. It can be seen that the activity is more spread during the day during the weekends, are more concentrated during weekdays*
 
-```{r}
-library(knitr)
-fig_path("plot1","png")
-fig_path("plot2","png")
-fig_path("plot3","png")
-fig_path("plot4","png")
-```
+
