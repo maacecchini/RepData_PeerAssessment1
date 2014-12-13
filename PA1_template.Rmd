@@ -2,7 +2,9 @@
 title: "PA1_template"
 author: "maac"
 date: "8 de dezembro de 2014"
-output: html_document
+output:
+  html_document:
+    fig_caption: yes
 ---
 
 This is the R Markdown document for Peer Assignment 1, Reproducible Research Course.
@@ -30,7 +32,7 @@ newdata <- activity %>%
 
 
 1. Make a histogram of the total number of steps taken each day
-```{r}
+```{r plot1}
 hist(newdata$dailyTotal,
      col="blue",
      main="Histogram of Total Steps per Day",
@@ -48,7 +50,7 @@ median(newdata$dailyTotal,na.rm=TRUE)
 **What is the average daily activity pattern?**
 
 Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
-```{r}
+```{r plot2}
 newdata <- activity %>%
            group_by(interval) %>%
            summarise(StepsInterval=mean(steps,na.rm=TRUE))
@@ -75,12 +77,11 @@ Note that there are a number of days/intervals where there are missing values (c
 
 Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
-*Are there any missing intervals, dates, and steps?*
-```{r}
-sum(is.na(activity$interval))
-sum(is.na(activity$date))
-sum(is.na(activity$steps))
-```
+*Are there any missing intervals , dates, and steps?*
+
+*Missing intervals=* `r sum(is.na(activity$interval))`
+*Missing dates=* `r sum(is.na(activity$date))`
+*Missing steps=* `r sum(is.na(activity$steps))`
 
 *Conclusion: only steps are missing.*
 
@@ -96,7 +97,7 @@ newdata<- inner_join(activity, newdata) %>% # every row will contain the average
 ```
 
 Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
-```{r}
+```{r plot3}
 # summarise and plot data
 newdata1 <- newdata %>% group_by(date) %>% summarise(dailyTotal=sum(steps))
 
@@ -123,7 +124,7 @@ newdata<-newdata %>%
          mutate(day=as.factor(ifelse(wday(date) %in% c(1,7),"weekend","weekday")))
 ```
 Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
-```{r}
+```{r plot4}
 library(lattice)
 newdata<- newdata %>% 
           group_by(day,interval) %>%
@@ -134,3 +135,11 @@ with (newdata,
 ```
 
 *CONCLUSION: There is a different pattern of steps for weekdays and weekends. It can be seen that the activity is more spread during the day during the weekends, are more concentrated during weekdays*
+
+```{r}
+library(knitr)
+fig_path("plot1","png")
+fig_path("plot2","png")
+fig_path("plot3","png")
+fig_path("plot4","png")
+```
