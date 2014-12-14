@@ -71,6 +71,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 ## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(knitr)</code></pre>
+<pre><code>## Warning: package 'knitr' was built under R version 3.1.2</code></pre>
 <pre class="r"><code>activity&lt;-read.csv(&quot;activity.csv&quot;)
 activity&lt;-mutate(activity,date=as.Date(date)) # change date to Date type</code></pre>
 <p><strong>What is mean total number of steps taken per day?</strong></p>
